@@ -32,7 +32,34 @@ function generateInput() {
 
     inputsContainer.appendChild(tryDiv);
   }
+  //!   Focus on the first input of the first try
   inputsContainer.children[0].children[1].focus();
+
+  //!   Disable all inputs except the first one
+  const inputsInDisabledTry = document.querySelectorAll(".disabled-try input");
+  inputsInDisabledTry.forEach((input) => (input.disabled = true));
+
+  const inputs = document.querySelectorAll("input");
+  inputs.forEach((input, index) => {
+    const nextInput = inputs[index + 1];
+    const previousInput = inputs[index - 1];
+    input.addEventListener("input", () => {
+      input.value = input.value.toUpperCase();
+      //   console.log(input.value, index);
+      //* To focus on the next input if the current input is not empty
+      if (input.value !== "") nextInput.focus();
+    });
+
+    //* To handle backspace and arrow keys
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") nextInput.focus();
+      if (e.key === "ArrowLeft") previousInput.focus();
+      if (e.key === "Backspace" && input.value === "") previousInput.focus();
+      if (e.key === "Backspace" && input.value !== "") {
+        input.value = "";
+      }
+    });
+  });
 }
 
 window.onload = function () {
