@@ -11,6 +11,23 @@ let numOfTries = 6;
 let numOfLetters = 6;
 let currTry = 1;
 
+// Manage Words
+let wordToGuess = "";
+const words = [
+  "planet",
+  "rocket",
+  "silver",
+  "jungle",
+  "candle",
+  "throne",
+  "dragon",
+  "castle",
+  "pirate",
+  "forest",
+];
+wordToGuess = words[Math.floor(Math.random() * words.length)].toLowerCase();
+console.log(wordToGuess);
+
 function generateInput() {
   const inputsContainer = document.querySelector(".inputs");
   //? Loop for creating Tries
@@ -53,13 +70,36 @@ function generateInput() {
     //* To handle backspace and arrow keys
     input.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight") nextInput.focus();
-      if (e.key === "ArrowLeft") previousInput.focus();
-      if (e.key === "Backspace" && input.value === "") previousInput.focus();
+      if (e.key === "ArrowLeft" && previousInput) previousInput.focus();
+      if (e.key === "Backspace" && input.value === "" && previousInput)
+        previousInput.focus();
       if (e.key === "Backspace" && input.value !== "") {
         input.value = "";
       }
     });
   });
+}
+
+const guessBtn = document.querySelector(".check");
+guessBtn.addEventListener("click", handleGuess);
+
+function handleGuess() {
+  let isSuccess = true;
+  for (let i = 1; i <= numOfLetters; i++) {
+    const tryInp = document.querySelector(`#guess-${currTry}-letter-${i}`);
+    const letter = tryInp.value.toLowerCase();
+    const correctLetter = wordToGuess[i - 1];
+    //! Game Logic
+    if (letter === correctLetter) {
+      tryInp.classList.add("correct");
+    } else if (wordToGuess.includes(letter) && letter !== "") {
+      tryInp.classList.add("not-in-place");
+      isSuccess = false;
+    } else {
+      tryInp.classList.add("not-in-word");
+      isSuccess = false;
+    }
+  }
 }
 
 window.onload = function () {
