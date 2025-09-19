@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="guess.css" />
+  </head>
+  <body>
+    <h1></h1>
+    <main class="guess-game">
+      <div class="game-area">
+        <div class="inputs"></div>
+
+        <div class="control">
+          <button class="check">Check Word</button>
+          <button class="hint"><span></span> Hint</button>
+        </div>
+
+        <div class="msg"></div>
+      </div>
+
+      <div class="key-colors">
+        <h2>Key Colors</h2>
+        <div class="key-color">
+          <div class="key correct"></div>
+          <div class="key-text">Letter is correct in right place</div>
+        </div>
+        <div class="key-color">
+          <div class="key not-in-place"></div>
+          <div class="key-text">Letter is correct but in wrong place</div>
+        </div>
+        <div class="key-color">
+          <div class="key not-in-word"></div>
+          <div class="key-text">Letter is not in the word</div>
+        </div>
+      </div>
+    </main>
+
+    <footer></footer>
+
+    <script src="guess.js"></script>
+  </body>
+</html>
