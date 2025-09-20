@@ -26,7 +26,22 @@ const words = [
   "forest",
 ];
 wordToGuess = words[Math.floor(Math.random() * words.length)].toLowerCase();
-console.log(wordToGuess);
+const popupContainer = document.querySelector(".popup-container");
+const popup = document.querySelector(".popup");
+const message = document.querySelector(".message");
+const closeBtn = document.querySelector(".close");
+const guessBtn = document.querySelector(".check");
+
+closeBtn.addEventListener("click", handleClosePopup);
+guessBtn.addEventListener("click", handleGuess);
+function handleClosePopup() {
+  popupContainer.classList.remove("show");
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") handleGuess();
+  if (e.key === "Escape") handleClosePopup();
+});
 
 function generateInput() {
   const inputsContainer = document.querySelector(".inputs");
@@ -80,9 +95,6 @@ function generateInput() {
   });
 }
 
-const guessBtn = document.querySelector(".check");
-guessBtn.addEventListener("click", handleGuess);
-
 function handleGuess() {
   let isSuccess = true;
   for (let i = 1; i <= numOfLetters; i++) {
@@ -100,7 +112,20 @@ function handleGuess() {
       isSuccess = false;
     }
   }
+
+  //*   If user wins
+  if (isSuccess) {
+    popupContainer.classList.add("show");
+    message.innerHTML = `Congrats You Win And The Word Is <span>${wordToGuess}</span>`;
+
+    let allTries = document.querySelectorAll(".inputs > div");
+    allTries.forEach((tryDiv) => tryDiv.classList.add("disabled-try"));
+    guessBtn.disabled = true;
+    return;
+  }
 }
+
+console.log(wordToGuess);
 
 window.onload = function () {
   generateInput();
