@@ -7,9 +7,9 @@ document.querySelector(
 ).innerHTML = `${gameName} Game Created by Ramez`;
 
 // Setting game options
+let currTry = 1;
 let numOfTries = 6;
 let numOfLetters = 6;
-let currTry = 1;
 
 // Manage Words
 let wordToGuess = "";
@@ -79,7 +79,7 @@ function generateInput() {
       input.value = input.value.toUpperCase();
       //   console.log(input.value, index);
       //* To focus on the next input if the current input is not empty
-      if (input.value !== "") nextInput.focus();
+      if (input.value !== "" && nextInput) nextInput.focus();
     });
 
     //* To handle backspace and arrow keys
@@ -113,15 +113,40 @@ function handleGuess() {
     }
   }
 
-  //*   If user wins
+  //*   If user win
   if (isSuccess) {
     popupContainer.classList.add("show");
-    message.innerHTML = `Congrats You Win And The Word Is <span>${wordToGuess}</span>`;
+    message.innerHTML = `<span>Congrats</span>You Get The Word After <span>${currTry} Tries</span>`;
 
     let allTries = document.querySelectorAll(".inputs > div");
     allTries.forEach((tryDiv) => tryDiv.classList.add("disabled-try"));
     guessBtn.disabled = true;
-    return;
+  } else {
+    //!   If user lose
+    // ? Disable the current try and its inputs
+    let prevTryDiv = document.querySelector(`.try-${currTry}`);
+    let prevAllInputs = document.querySelectorAll(`.try-${currTry} input`);
+    prevTryDiv.classList.add("disabled-try");
+    prevAllInputs.forEach((inp) => (inp.disabled = true));
+
+    // ? Enable the next try and its inputs and focus on the first input
+    currTry += 1;
+    if (currTry <= numOfTries) {
+      let currTryDiv = document.querySelector(`.try-${currTry}`);
+      let currAllInputs = document.querySelectorAll(`.try-${currTry} input`);
+      currTryDiv.classList.remove("disabled-try");
+      currAllInputs.forEach((inp) => (inp.disabled = false));
+
+      currTryDiv.children[1].focus();
+
+      // ? Check if the game is over
+    } else if (currTry > numOfTries) {
+      popupContainer.classList.add("show");
+      message.innerHTML = `<span>GAME OVER</span> You Lose, The Word Is <span>${wordToGuess}</span>`;
+      let allTries = document.querySelectorAll(".inputs > div");
+      allTries.forEach((tryDiv) => tryDiv.classList.add("disabled-try"));
+      guessBtn.disabled = true;
+    }
   }
 }
 

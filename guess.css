@@ -152,7 +152,7 @@ h1 {
           }
         }
         &.hint {
-          background-color: #03b485;
+          background-color: #03a87c;
           box-shadow: 0 2px 4px 0 rgba(190, 189, 189, 0.1);
           &:hover {
             background-color: #018e5b;
@@ -251,12 +251,24 @@ h1 {
   .message {
     margin-bottom: 20px;
     font-size: 28px;
-    width: 85%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
     font-family: "Play", sans-serif;
-    span {
+    span:first-child {
       font-family: "Tomorrow", sans-serif;
       font-weight: 700;
       font-size: 36px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    span:last-child {
+      font-family: "Tomorrow", sans-serif;
+      font-weight: 700;
+      font-size: 38px;
       text-transform: capitalize;
       color: #f10aa4;
     }
@@ -265,10 +277,10 @@ h1 {
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 10px 33px;
+    padding: 8px 25px;
     border-radius: 10px;
     color: #eee;
-    font-size: 23px;
+    font-size: 22px;
     font-weight: 500;
     font-family: "Tomorrow", sans-serif;
     transition: all 0.2s;
