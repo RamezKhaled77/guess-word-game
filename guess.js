@@ -10,6 +10,7 @@ document.querySelector(
 let currTry = 1;
 let numOfTries = 6;
 let numOfLetters = 6;
+let numOfHints = 2;
 
 // Manage Words
 let wordToGuess = "";
@@ -31,11 +32,38 @@ const popup = document.querySelector(".popup");
 const message = document.querySelector(".message");
 const closeBtn = document.querySelector(".close");
 const guessBtn = document.querySelector(".check");
+const hintsSpan = document.querySelector(".hint span");
+const hintBtn = document.querySelector(".hint");
+
+hintBtn.addEventListener("click", handleGetHint);
+hintsSpan.textContent = numOfHints;
 
 closeBtn.addEventListener("click", handleClosePopup);
 guessBtn.addEventListener("click", handleGuess);
 function handleClosePopup() {
   popupContainer.classList.remove("show");
+}
+
+function handleGetHint() {
+  let enabledInputs = document.querySelectorAll(`.try-${currTry} input`);
+  let emptyEnabledInputs = Array.from(enabledInputs).filter(
+    (inp) => inp.value === ""
+  );
+
+  if (numOfHints > 0) {
+    numOfHints--;
+    hintsSpan.textContent = numOfHints;
+  }
+  if (numOfHints === 0) hintBtn.disabled = true;
+
+  if (emptyEnabledInputs.length > 0) {
+    const randomIndex = Math.floor(Math.random() * emptyEnabledInputs.length);
+    const randomInput = emptyEnabledInputs[randomIndex];
+    const IndexToFill = Array.from(enabledInputs).indexOf(randomInput);
+    randomInput.value = wordToGuess[IndexToFill].toUpperCase();
+    randomInput.disabled = true;
+    randomInput.classList.add("correct");
+  }
 }
 
 document.addEventListener("keydown", (e) => {
@@ -121,6 +149,7 @@ function handleGuess() {
     let allTries = document.querySelectorAll(".inputs > div");
     allTries.forEach((tryDiv) => tryDiv.classList.add("disabled-try"));
     guessBtn.disabled = true;
+    hintBtn.disabled = true;
   } else {
     //!   If user lose
     // ? Disable the current try and its inputs
@@ -146,6 +175,7 @@ function handleGuess() {
       let allTries = document.querySelectorAll(".inputs > div");
       allTries.forEach((tryDiv) => tryDiv.classList.add("disabled-try"));
       guessBtn.disabled = true;
+      hintBtn.disabled = true;
     }
   }
 }
