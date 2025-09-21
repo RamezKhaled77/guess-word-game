@@ -3,13 +3,40 @@
   margin: 0;
   padding: 0;
 }
-/* :root {
-  --primary-color: #0ecee7;
-} */
 body {
   background-color: #37353e;
   font-family: Arial, Helvetica, sans-serif;
   color: #fff;
+  padding-top: 100px;
+  padding-bottom: 80px;
+}
+/* Loader style */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #37353e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #ccc;
+  border-top: 6px solid #0512c5;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 h1 {
   font-family: "Tomorrow", sans-serif;
@@ -25,6 +52,7 @@ h1 {
   background-color: #525ceb;
   color: rgb(199, 241, 10);
   margin: 2px auto 0;
+  z-index: 9999;
   box-shadow: 0 2px 4px 0 rgba(236, 236, 236, 0.1);
   border-radius: 13px;
   -webkit-border-radius: 13px;
@@ -42,17 +70,12 @@ h1 {
   text-align: center;
   width: 1000px;
   margin: 20px auto;
-  display: flex;
+  display: none;
   align-items: center;
-  /* justify-content: space-around; */
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  -ms-border-radius: 15px;
-  -o-border-radius: 15px;
   .game-area {
     background-color: #525ceb70;
     padding: 30px 60px 25px 30px;
@@ -167,7 +190,7 @@ h1 {
     }
   }
   .key-colors {
-    padding: 0 25px 0 37px;
+    padding: 0 25px 0;
     h2 {
       margin-bottom: 26px;
       font-family: "Tomorrow", sans-serif;
@@ -176,7 +199,7 @@ h1 {
       color: rgb(199, 241, 10);
     }
     .key-color {
-      padding: 12px 20px 12px 12px;
+      padding: 12px 18px 12px 12px;
       margin-bottom: 18px;
       display: flex;
       border-radius: 9px;
@@ -208,6 +231,22 @@ h1 {
         font-family: "Play", sans-serif;
         font-weight: 700;
         font-size: 20px;
+      }
+    }
+    .keyboard-ctrl {
+      padding-left: 11px;
+      color: #eee;
+      text-align: start;
+      line-height: 1.6;
+      font-size: 17px;
+      font-family: "Play", sans-serif;
+      li {
+        list-style: none;
+      }
+      span {
+        font-family: "Tomorrow", sans-serif;
+        font-weight: 500;
+        color: rgb(199, 241, 10);
       }
     }
   }
@@ -299,7 +338,7 @@ footer {
   background-color: #cecdcd;
   color: #333;
   padding: 24px;
-  position: fixed;
+  position: absolute;
   bottom: 1%;
   left: 1%;
   width: 98%;
@@ -308,4 +347,46 @@ footer {
   -moz-border-radius: 12px;
   -ms-border-radius: 12px;
   -o-border-radius: 12px;
+}
+
+@media screen and (max-width: 992px) {
+  .guess-game {
+    padding: 25px 25px 88px;
+    margin: 310px auto !important;
+    width: 90% !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    .game-area {
+      width: 100% !important;
+    }
+    .key-colors {
+      width: 100% !important;
+    }
+  }
+
+  footer {
+    bottom: -67%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 41px;
+  }
+  .guess-game {
+    padding-bottom: 98px;
+    margin: 290px auto !important;
+    width: 100% !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    .game-area {
+      width: 100% !important;
+    }
+    .key-colors {
+      width: 100% !important;
+    }
+  }
+  footer {
+    bottom: -60%;
+  }
 }

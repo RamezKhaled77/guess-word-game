@@ -1,10 +1,27 @@
+// Global Variables
+const popupContainer = document.querySelector(".popup-container");
+const popup = document.querySelector(".popup");
+const message = document.querySelector(".message");
+const closeBtn = document.querySelector(".close");
+const guessBtn = document.querySelector(".check");
+const hintsSpan = document.querySelector(".hint span");
+const hintBtn = document.querySelector(".hint");
+
 // Setting the game name
 const gameName = "Guess The Word";
 document.title = gameName;
 document.querySelector("h1").textContent = gameName;
 document.querySelector(
   "footer"
-).innerHTML = `${gameName} Game Created by Ramez`;
+).innerHTML = `${gameName} Game Created by Ramez - Vanilla JS`;
+
+// Simulate loading
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("loader").style.display = "none";
+    document.querySelector(".guess-game").style.display = "flex";
+  }, 500); // 0.5s delay
+});
 
 // Setting game options
 let currTry = 1;
@@ -15,47 +32,59 @@ let numOfHints = 2;
 // Manage Words
 let wordToGuess = "";
 const words = [
-  "planet",
-  "rocket",
-  "silver",
-  "jungle",
-  "candle",
-  "throne",
-  "dragon",
-  "castle",
-  "pirate",
-  "forest",
+  "script", // JavaScript, scripting
+  "syntax", // code syntax
+  "object", // OOP concept
+  "method", // functions in OOP
+  "string", // data type
+  "buffer", // memory buffer
+  "branch", // Git branch
+  "commit", // Git commit
+  "cursor", // database cursor
+  "import", // import modules
+  "export", // export modules
+  "socket", // network socket
+  "server", // backend server
+  "client", // frontend client
+  "binary", // binary system
+  "docker", // containerization
+  "kernel", // OS kernel
+  "python", // programming language
+  "github", // code hosting
+  "deploy", // deployment
 ];
+
 wordToGuess = words[Math.floor(Math.random() * words.length)].toLowerCase();
-const popupContainer = document.querySelector(".popup-container");
-const popup = document.querySelector(".popup");
-const message = document.querySelector(".message");
-const closeBtn = document.querySelector(".close");
-const guessBtn = document.querySelector(".check");
-const hintsSpan = document.querySelector(".hint span");
-const hintBtn = document.querySelector(".hint");
-
-hintBtn.addEventListener("click", handleGetHint);
 hintsSpan.textContent = numOfHints;
+console.log(wordToGuess);
 
+// Event Listeners
+hintBtn.addEventListener("click", handleGetHint);
 closeBtn.addEventListener("click", handleClosePopup);
 guessBtn.addEventListener("click", handleGuess);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") handleGuess();
+  if (e.key === "Escape") handleClosePopup();
+});
+
+// Handle Functions
 function handleClosePopup() {
   popupContainer.classList.remove("show");
 }
-
 function handleGetHint() {
   let enabledInputs = document.querySelectorAll(`.try-${currTry} input`);
   let emptyEnabledInputs = Array.from(enabledInputs).filter(
     (inp) => inp.value === ""
   );
 
+  // Manage Hints Button
   if (numOfHints > 0) {
     numOfHints--;
     hintsSpan.textContent = numOfHints;
   }
   if (numOfHints === 0) hintBtn.disabled = true;
 
+  // ? If there are empty inputs
   if (emptyEnabledInputs.length > 0) {
     const randomIndex = Math.floor(Math.random() * emptyEnabledInputs.length);
     const randomInput = emptyEnabledInputs[randomIndex];
@@ -66,11 +95,7 @@ function handleGetHint() {
   }
 }
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") handleGuess();
-  if (e.key === "Escape") handleClosePopup();
-});
-
+// Generate Inputs
 function generateInput() {
   const inputsContainer = document.querySelector(".inputs");
   //? Loop for creating Tries
@@ -105,7 +130,6 @@ function generateInput() {
     const previousInput = inputs[index - 1];
     input.addEventListener("input", () => {
       input.value = input.value.toUpperCase();
-      //   console.log(input.value, index);
       //* To focus on the next input if the current input is not empty
       if (input.value !== "" && nextInput) nextInput.focus();
     });
@@ -123,6 +147,7 @@ function generateInput() {
   });
 }
 
+// Handle Guess
 function handleGuess() {
   let isSuccess = true;
   for (let i = 1; i <= numOfLetters; i++) {
@@ -179,8 +204,6 @@ function handleGuess() {
     }
   }
 }
-
-console.log(wordToGuess);
 
 window.onload = function () {
   generateInput();

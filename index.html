@@ -13,7 +13,12 @@
     <link rel="stylesheet" href="guess.css" />
   </head>
   <body>
+    <!-- Loader -->
+    <div id="loader">
+      <div class="spinner"></div>
+    </div>
     <h1></h1>
+
     <main class="guess-game">
       <div class="game-area">
         <div class="inputs"></div>
@@ -32,7 +37,7 @@
       </div>
 
       <div class="key-colors">
-        <h2>Key Colors</h2>
+        <h2>Game Keys</h2>
         <div class="key-color">
           <div class="key correct"></div>
           <div class="key-text">Letter is correct in right place</div>
@@ -45,6 +50,12 @@
           <div class="key not-in-word"></div>
           <div class="key-text">Letter is not in the word</div>
         </div>
+        <ul class="keyboard-ctrl">
+          <li><span>[Left, Right]</span> arrows to move between the inputs</li>
+          <li><span>[Backspace]</span> to delete a letter</li>
+          <li><span>[Enter]</span> to check your guess</li>
+          <li><span>[Escape]</span> to close the popup</li>
+        </ul>
       </div>
     </main>
 
