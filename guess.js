@@ -56,8 +56,6 @@ const words = [
 
 wordToGuess = words[Math.floor(Math.random() * words.length)].toLowerCase();
 hintsSpan.textContent = numOfHints;
-console.log(wordToGuess);
-
 // Event Listeners
 hintBtn.addEventListener("click", handleGetHint);
 closeBtn.addEventListener("click", handleClosePopup);
