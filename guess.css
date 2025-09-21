@@ -396,19 +396,24 @@ footer {
   }
   .guess-game {
     padding: 15px 15px 88px;
-    padding-bottom: 58px;
-    margin: 250px auto !important;
+    padding-bottom: 28px;
+    margin: 230px auto !important;
     width: 100% !important;
     flex-direction: column !important;
     gap: 30px !important;
     .game-area {
       width: 100% !important;
-      .inputs > div > span {
-        font-size: 16px;
-      }
-      .inputs > div > input {
-        width: 38px;
-        height: 38px;
+      padding: 20px;
+      .inputs > div {
+        gap: 7px;
+        > span {
+          font-size: 16px;
+          margin-right: 7px;
+        }
+        > input {
+          width: 40px;
+          height: 40px;
+        }
       }
       .control > button {
         font-size: 16px;
